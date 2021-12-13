@@ -541,16 +541,22 @@ const knope = require('knope');
 const complimentBox = document.getElementById('compliment');
 const complimentBtn = document.getElementById('btn');
 const body = document.querySelector('body');
-const hiddenText = document.querySelector('#img-clicked');
 
 const imgSpan = document.createElement('span');
 imgSpan.setAttribute('onclick', 'event.stopPropagation()');
 imgSpan.classList.add('img-span');
 
+const imgSpanText = document.createElement('p');
+imgSpanText.classList.add('hidden');
+imgSpanText.classList.add('bottom');
+imgSpanText.innerText = `Clique sur l'image pour la faire disparaître !`;
+
 const niceTweetImg = document.createElement('img');
 
 body.appendChild(imgSpan);
+
 let imgSrc = "";
+let hiddenText;
 
 const getCompliment = () => {
   imgSrc = '';
@@ -581,14 +587,15 @@ const getNiceTweet = () => {
   
   niceTweetImg.setAttribute('src', imgSrc);
   niceTweetImg.classList.add('nice-tweet-img');
+  imgSpan.appendChild(imgSpanText);
   imgSpan.appendChild(niceTweetImg);
-  hiddenText.classList.remove('hidden');
+  imgSpanText.classList.remove('hidden');
 }
 
 const removeNiceTweet = () => {
   imgSpan.removeChild(niceTweetImg);
   body.addEventListener('click', getNiceTweet);
-  hiddenText.classList.add('hidden');
+  imgSpanText.classList.add('hidden');
 }
 
 complimentBtn.addEventListener('click', getCompliment);
